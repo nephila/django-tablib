@@ -5,7 +5,7 @@ import datetime
 import django
 from distutils.version import LooseVersion
 from django.contrib import admin
-from django.core.urlresolvers import reverse
+
 from django.http import Http404
 
 
@@ -19,6 +19,11 @@ try:
     from functools import update_wrapper
 except ImportError:
     from django.utils.functional import update_wrapper
+
+try:
+    from django.core.urlresolvers import reverse
+except ImportError:
+    from django.urls import reverse
 
 INVALID_EXPORT_FORMAT_ERROR_MSG = (
     "{0} is not a valid export format, "
