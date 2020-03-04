@@ -27,7 +27,11 @@ def tablib_export_action(modeladmin, request, queryset, file_type="xls"):
         'content_type': get_content_type(file_type)
     }
 
-    response = HttpResponse(getattr(dataset, file_type), **response_kwargs)
+    try:
+        data = getattr(dataset, file_type)
+    except AttributeError:
+        data = dataset.export(file_type)
+    response = HttpResponse(data, **response_kwargs)
     response['Content-Disposition'] = 'attachment; filename={0}'.format(
         filename)
     return response

@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import datetime
 import tablib
+import sys
 
 from django.template.defaultfilters import date
 from django.utils.encoding import force_text
@@ -15,6 +16,8 @@ mimetype_map = {
     'yaml': 'text/yaml',
     'json': 'application/json',
 }
+
+is_py3 = (sys.version_info[0] > 2)
 
 
 def get_content_type(export_format, encoding='utf-8'):
@@ -33,9 +36,10 @@ class BaseDataset(tablib.Dataset):
         super(BaseDataset, self).__init__(headers=self.header_list, *data)
 
     def _cleanval(self, value, attr):
+        unicode_value = str(value) if is_py3 else unicode(value)
         if callable(value):
             value = value()
-        elif value is None or tablib.compat.unicode(value) == "None":
+        elif value is None or unicode_value == "None":
             value = ""
 
         if isinstance(value, bool):
