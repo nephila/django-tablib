@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
-
+from setuptools import setup
 
 description = "A wrapper around Kenneth Reitz' tablib to work with Django " \
     "models."
