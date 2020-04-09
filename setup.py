@@ -5,7 +5,7 @@ from setuptools import setup
 description = "A wrapper around Kenneth Reitz' tablib to work with Django " \
     "models."
 
-VERSION = '3.3'
+VERSION = '3.4'
 
 setup(
     name='django-tablib',
